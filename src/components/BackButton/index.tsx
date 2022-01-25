@@ -16,11 +16,11 @@ export function BackButton({color, ...rest}: Props){
   const theme = useTheme();
 
   return(
-    <GestureHandlerRootView style={{flex:1}}>
+    <GestureHandlerRootView>
       <Container {...rest}>
         <MaterialIcons
           name="chevron-left"
-          size={24}
+          size={35}
           color={color ? color: theme.colors.text}
         />
       </Container>
