@@ -1,31 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../../@types/navigation';
+
 import { RFValue } from 'react-native-responsive-fontsize';
+
+import api from '../../services/api';
+import { CarDTO } from '../../dtos/carDTO';
+import { useTheme } from 'styled-components';
 
 import Logo from '../../assets/logo.svg';
 import { Car } from '../../components/Car';
+import { Load } from '../../components/Load';
+import { Ionicons } from '@expo/vector-icons';
+
 import {
   Container,
   Header,
   TotalCars,
   HeaderContent,
   CarList,
+  MyCarsButton,
  } from './styles';
 
+type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
 
+export function Home({ navigation }: HomeProps) {
+  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+  const theme = useTheme();
 
-export function Home(){
-  const carData = {
-    brand: 'audi',
-    name: 'RS 5 Coupé',
-    rent: {
-      period: 'Ao Dia',
-      price: 120,
-    },
-    thumbnail: 'https://1.bp.blogspot.com/-i3epqLLAcNA/WU1-4y3DWnI/AAAAAAACmDs/GnSbyeeS-Ggbt4NuDnh5iWDfWZqC65CKACLcBGAs/s1600/audi_rs_5_coupe_76.jpg'
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate('CarDetails', { car })
   }
 
+  function handleOpenMyCars() {
+    navigation.navigate('MyCars', {});
+  }
+
+
+useEffect (() => {
+  async function fetchCars() {
+    try {
+      const response = await api.get('/cars');
+      setCars(response.data);
+    } catch (error){
+      console.log(error)
+    } finally{
+      setLoading(false);
+    }
+  };
+
+  fetchCars();
+},[]);
+
   return(
+
     <Container>
       <StatusBar
         barStyle="light-content"
@@ -43,13 +75,19 @@ export function Home(){
           </TotalCars>
         </HeaderContent>
       </Header>
+      { loading ? <Load /> :
+        <CarList
+          data={cars}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => <Car data={item} onPress={() => handleCarDetails(item)} />}
+        />
+      }
 
-      <CarList
-        data={[1,2,3,4,5,6,7,8,9,10]}
-        keyExtractor={item => String(item)}
-        renderItem={({ item }) => <Car data={carData}/>}
-      />
-
+      <GestureHandlerRootView>
+        <MyCarsButton onPress={handleOpenMyCars}>
+          <Ionicons name='ios-car-sport' size={32} color={theme.colors.shape}/>
+        </MyCarsButton>
+      </GestureHandlerRootView>
     </Container>
   );
 
