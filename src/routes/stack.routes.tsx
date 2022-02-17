@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-
 const { Navigator, Screen } = createStackNavigator();
 
 import { Home } from '../screens/Home';
@@ -10,14 +9,23 @@ import { Scheduling } from '../screens/Scheduling';
 import { SchedulingDetails } from '../screens/SchedulingDetails';
 import { SchedulingComplete } from '../screens/SchedulingComplete';
 import { MyCars } from '../screens/MyCars';
+import { Splash } from '../screens/Splash';
 
 
 export function StackRoutes(){
   return(
-    <Navigator screenOptions={{ headerShown: false }}>
+    <Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash">
+      <Screen
+        name="Splash"
+        component={Splash}
+      />
+
       <Screen
         name="Home"
         component={Home}
+        options={{
+          gestureEnabled: false,
+        }}
       />
 
       <Screen

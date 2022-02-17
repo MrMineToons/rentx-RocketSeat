@@ -14,6 +14,7 @@ import { AntDesign } from '@expo/vector-icons';
 import api from '../../services/api';
 import { BackButton } from '../../components/BackButton';
 import { Load } from '../../components/Load';
+import { LoadAnimation } from '../../components/LoadAnimation';
 
 import {
   Container,
@@ -81,7 +82,7 @@ export function MyCars({ navigation }: MyCarsProps){
         </SubTitle>
       </Header>
 
-      { loading ? <Load /> :
+      { loading ? <LoadAnimation /> :
         <Content>
           <Appointments>
             <AppointimentsTitle>Agendamentos Feitos</AppointimentsTitle>

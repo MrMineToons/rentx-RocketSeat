@@ -5,4 +5,5 @@ export type RootStackParamList = {
   SchedulingComplete: {};
   SchedulingDetails: {};
   MyCars: {};
+  Splash: {};
 };
