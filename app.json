@@ -7,7 +7,9 @@
       "**/*"
     ],
     "splash": {
-      "image": "./src/Utils/Union.png"
+      "image": "./src/Utils/Union.png",
+      "resizeMode": "native",
+      "backgroundColor": "#1B1B1F"
     }
   },
   "name": "rentx"

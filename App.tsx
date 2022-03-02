@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { StatusBar } from 'expo-status-bar';
 
@@ -19,6 +20,8 @@ import {
 
 import theme from './src/styles/theme';
 import { Routes } from './src/routes'
+import { AppProvider } from './src/hooks';
+import { View } from 'react-native';
 
 
 export default function App() {
@@ -31,14 +34,19 @@ export default function App() {
   });
 
   if(!fontsLoaded){
-    return <AppLoading />
+    return (
+        <AppLoading />
+    );
   }
 
 
   return (
-    <ThemeProvider theme={theme}>
-      <Routes />
-    </ThemeProvider>
-
+      <ThemeProvider theme={theme}>
+        <AppProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Routes />
+          </GestureHandlerRootView>
+        </AppProvider>
+      </ThemeProvider>
   );
 }

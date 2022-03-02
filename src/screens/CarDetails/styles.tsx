@@ -11,7 +11,8 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
+  height: 35px;
+  width: 35px;
   position: absolute;
   margin-top: ${getStatusBarHeight() + 18}px;
   margin-left: 24px;
@@ -88,4 +89,12 @@ export const Footer = styled.View`
   background-color: ${({ theme }) => theme.colors.background_secondary};
 
   padding: 24px 24px ${getBottomSpace() + 24}px;
+`;
+
+
+export const OfflineInfo = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.primary_400};
+  color: ${({ theme }) => theme.colors.main};
+  font-size: ${RFValue(10)}px;
+  text-align: center;
 `;

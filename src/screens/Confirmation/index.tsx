@@ -17,11 +17,24 @@ import {
   Footer,
  } from './styles';
 
+
 type HomeProps = StackScreenProps<RootStackParamList, 'SchedulingComplete'>;
 
-export function SchedulingComplete({ navigation }: HomeProps){
+interface Params{
+  title: string;
+  message: string;
+  nextScreenRoute: keyof RootStackParamList;
+}
+
+export function Confirmation({ navigation, route }: HomeProps){
   const theme = useTheme();
   const { width } = useWindowDimensions();
+
+  const { title, message, nextScreenRoute } = route.params as Params;
+
+  function handleConfirm() {
+    navigation.navigate(nextScreenRoute, {})
+  }
   return(
     <Container>
       <StatusBar
@@ -33,16 +46,14 @@ export function SchedulingComplete({ navigation }: HomeProps){
 
       <Content>
         <DoneSvg />
-        <Title> Carro Alugado! </Title>
+        <Title>{title}</Title>
         <Message>
-          Agora você só precisar ir {'\n'}
-          até a concessionária da RENTX {'\n'}
-          pegar o seu automóvel.
+          {message}
         </Message>
       </Content>
 
       <Footer>
-        <ConfirmButton title='OK' color={theme.colors.success} onPress={() => {navigation.navigate('Home', {})}} />
+        <ConfirmButton title='OK' color={theme.colors.success} onPress={handleConfirm} />
       </Footer>
     </Container>
   );

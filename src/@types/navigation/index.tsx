@@ -2,8 +2,12 @@ export type RootStackParamList = {
   Home: {};
   CarDetails: {};
   Scheduling: {};
-  SchedulingComplete: {};
+  Confirmation: {};
   SchedulingDetails: {};
   MyCars: {};
   Splash: {};
+  SignIn: {};
+  SignUpFirstStep: {};
+  Profile: undefined;
+  SignUpSecondStep: { user: any };
 };
